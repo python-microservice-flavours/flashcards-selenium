@@ -163,6 +163,9 @@ skip_gitignore = true
 # Use parentheses for line continuation on length limit instead of backslashes.
 use_parentheses = true
 
+# Include trailing comma
+include_trailing_comma = true
+
 # -------------------------------------------------------------------------------------------------
 
 [tool.mypy]

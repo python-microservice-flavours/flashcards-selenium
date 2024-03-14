@@ -3,7 +3,6 @@
 Revision ID: fd0b55b207fb
 Revises:
 Create Date: 2023-11-28 13:14:29.733520
-
 """
 
 import sqlalchemy

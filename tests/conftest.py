@@ -8,7 +8,7 @@ from pydantic import HttpUrl
 
 from src.adapters.google_flashcard_repository import (
     AbstractGoogleFlashcardRepository,
-    GoogleFlashcardRepository
+    GoogleFlashcardRepository,
 )
 from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
 from src.adapters.orm import Base

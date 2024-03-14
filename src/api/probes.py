@@ -22,6 +22,5 @@ def check_readiness() -> JSONResponse:
     """Check if application is ready and connected to db.
 
     Select shoud be here.
-
     """
     return JSONResponse(content="OK", status_code=fastapi.status.HTTP_200_OK)
