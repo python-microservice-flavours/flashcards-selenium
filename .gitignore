@@ -1,0 +1,12 @@
+# directories
+__pycache__
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.venv
+reports
+
+# files
+.coverage
+.DS_Store
+poetry.lock
