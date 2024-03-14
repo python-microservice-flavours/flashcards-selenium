@@ -3,14 +3,16 @@
 import asyncio
 import typing
 
-if typing.TYPE_CHECKING:
-    from src.domain.model import Flashcard
-
-from .. import conftest
-from .conftest import ServiceClass
 from src import views
 from src.services.message_bus import MessageBus
 from src.services.unit_of_work import AbstractUnitOfWork
+
+from .. import conftest
+from .conftest import ServiceClass
+
+
+if typing.TYPE_CHECKING:
+    from src.domain.model import Flashcard
 
 
 class TestFetchFlashcardByWordView:
@@ -37,7 +39,7 @@ class TestFetchFlashcardByWordView:
             {"prefix": "FIRST_"},
             {"prefix": "SECOND_"},
         )
-        google_repo, flashcards = conftest.ServiceClass.create_google_repository_with_flashcards()
+        google_repo, _ = conftest.ServiceClass.create_google_repository_with_flashcards()
         fake_bus.uow.google_flashcard_repository = google_repo
 
         flashcard_from_google: Flashcard | None = await views.flashcards.fetch_flashcard_by_word(
@@ -56,7 +58,7 @@ class TestFetchFlashcardByWordView:
             {"prefix": "FIRST_"},
             {"prefix": "SECOND_"},
         )
-        google_repo, flashcards = conftest.ServiceClass.create_google_repository_with_flashcards()
+        google_repo, _ = conftest.ServiceClass.create_google_repository_with_flashcards()
         fake_bus.uow.google_flashcard_repository = google_repo
 
         flashcard_from_google: Flashcard | None = await views.flashcards.fetch_flashcard_by_word(

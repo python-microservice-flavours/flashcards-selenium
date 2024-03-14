@@ -1,6 +1,7 @@
 """Unit tests related to containers wiring."""
 
 from fastapi import FastAPI
+
 from src import adapters, routines, services
 from src.api import endpoints
 from src.containers.wiring import attach_containers_to_app

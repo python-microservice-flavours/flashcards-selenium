@@ -5,11 +5,11 @@ from fastapi import FastAPI
 from .. import adapters, routines, services
 from ..api import endpoints
 from .database_engine import DatabaseEngineContainer
-from .web_scraper import WebScraperContainer
 from .google_flashcard_repository import GoogleFlashcardRepositoryContainer
 from .message_bus import MessageBusContainer
 from .session_factory import SessionFactoryContainer
 from .unit_of_work import SqlAlchemyUnitOfWorkContainer
+from .web_scraper import WebScraperContainer
 
 
 def attach_containers_to_app(app: FastAPI) -> None:

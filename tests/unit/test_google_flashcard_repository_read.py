@@ -1,7 +1,9 @@
-"""Integration tests related to Google flashcard repository's READ operations."""
+"""Integration tests related to Google flashcard repository's READ
+operations."""
+
+from src.adapters.google_flashcard_repository import GoogleFlashcardRepository
 
 from .. import conftest
-from src.adapters.google_flashcard_repository import GoogleFlashcardRepository
 
 
 class TestRetrieveFlashcardByWord:

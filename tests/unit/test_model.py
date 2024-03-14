@@ -1,6 +1,7 @@
 """Unit tests related to model."""
 
 import pytest
+
 from src.domain import model
 
 

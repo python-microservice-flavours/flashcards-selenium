@@ -1,7 +1,9 @@
-"""Integration tests related to local flashcard repository's DELETE operations."""
+"""Integration tests related to local flashcard repository's DELETE
+operations."""
 
 import pytest
 import sqlalchemy.ext.asyncio
+
 from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
 from src.domain import exceptions
 

@@ -5,6 +5,7 @@ import contextlib
 import pytest
 import sqlalchemy.ext.asyncio
 from sqlalchemy import text
+
 from src.domain.exceptions import DatabaseConnectionError
 from src.services.unit_of_work import SqlAlchemyUnitOfWork
 
@@ -26,7 +27,7 @@ class ServiceClass:
             {
                 "word": "WORD",
                 "details": '{"definitions": ["DEFINITION"], "synonyms": ["SYNONYM"], '
-                           '"translations": ["TRANSLATION"], "examples": ["EXAMPLE"]}',
+                '"translations": ["TRANSLATION"], "examples": ["EXAMPLE"]}',
             },
         )
         if commit_after_insert:

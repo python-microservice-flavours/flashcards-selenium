@@ -1,7 +1,9 @@
-"""Integration tests related to local flashcard repository's READ operations."""
+"""Integration tests related to local flashcard repository's READ
+operations."""
 
 import pytest
 import sqlalchemy.ext.asyncio
+
 from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
 from src.domain import exceptions
 
@@ -115,7 +117,7 @@ class TestRetrieveAllFlashcards:
         sqlite_session_factory: sqlalchemy.ext.asyncio.async_sessionmaker,
     ) -> None:
         async with sqlite_session_factory() as session:
-            repo, flashcards = ServiceClass.create_local_repository_with_flashcards(
+            repo, _ = ServiceClass.create_local_repository_with_flashcards(
                 session,
                 {"word": "WORD"},
             )

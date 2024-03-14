@@ -2,8 +2,8 @@
 
 import types
 import typing
-import typing_extensions
 
+import typing_extensions
 from pydantic import HttpUrl
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -13,8 +13,9 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from ..settings import AppSettings
 from ..domain.exceptions import WebScraperError
+from ..settings import AppSettings
+
 
 if typing.TYPE_CHECKING:
     from selenium.webdriver.remote.webdriver import WebDriver
@@ -90,9 +91,8 @@ class SeleniumWebScraper(AbstractWebScraper):
         exc_val: BaseException | None,
         exc_tb: types.TracebackType | None,
     ) -> bool | None:
-        super().__exit__(exc_type, exc_val, exc_tb)
         self.driver.quit()
-        return None
+        return super().__exit__(exc_type, exc_val, exc_tb)
 
     def _load_web_page(self, url: HttpUrl) -> None:
         self.driver.get(url.unicode_string())

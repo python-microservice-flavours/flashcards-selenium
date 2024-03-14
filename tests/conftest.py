@@ -1,37 +1,27 @@
 """General fixtures."""
 
-import types
 import typing
-import typing_extensions
 
-from pydantic import HttpUrl
 import pytest
 import sqlalchemy.ext.asyncio
+from pydantic import HttpUrl
 
+from src.adapters.google_flashcard_repository import (
+    AbstractGoogleFlashcardRepository,
+    GoogleFlashcardRepository
+)
 from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
-from src.adapters import google_flashcard_repository
 from src.adapters.orm import Base
 from src.domain.messages import Message
 from src.domain.model import Flashcard
 from src.services import unit_of_work
-from src.services.web_scraper import AbstractWebScraper
 from src.services.message_bus import MessageBus
+from src.services.web_scraper import AbstractWebScraper
 
 
 class FakeWebScraper(AbstractWebScraper):
     def __init__(self) -> None:
         self.number_of_buttons_pressed = 0
-
-    def __enter__(self) -> typing_extensions.Self:
-        return super().__enter__()
-
-    def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_val: BaseException | None,
-        exc_tb: types.TracebackType | None,
-    ) -> bool | None:
-        return super().__exit__(exc_type, exc_val, exc_tb)
 
     def _load_web_page(self, url: HttpUrl) -> None:
         self.web_page_loaded = True
@@ -62,8 +52,8 @@ def fake_web_scraper() -> AbstractWebScraper:
 @pytest.fixture()
 def fake_google_flashcard_repository(
     fake_web_scraper: AbstractWebScraper,
-) -> google_flashcard_repository.AbstractGoogleFlashcardRepository:
-    return google_flashcard_repository.GoogleFlashcardRepository(web_scraper=fake_web_scraper)
+) -> AbstractGoogleFlashcardRepository:
+    return GoogleFlashcardRepository(web_scraper=fake_web_scraper)
 
 
 @pytest.fixture()
@@ -88,7 +78,7 @@ def sqlite_session_factory(
 @pytest.fixture()
 def sqlite_uow(
     sqlite_session_factory: sqlalchemy.ext.asyncio.async_sessionmaker,
-    fake_google_flashcard_repository: google_flashcard_repository.AbstractGoogleFlashcardRepository,  # noqa: E501
+    fake_google_flashcard_repository: AbstractGoogleFlashcardRepository,
 ) -> unit_of_work.AbstractUnitOfWork:
     return unit_of_work.SqlAlchemyUnitOfWork(
         session_factory=sqlite_session_factory,
@@ -159,8 +149,8 @@ class ServiceClass:
     @staticmethod
     def create_google_repository_with_flashcards(
         *product_data: dict,
-    ) -> tuple[google_flashcard_repository.GoogleFlashcardRepository, list[Flashcard]]:
-        google_repo = google_flashcard_repository.GoogleFlashcardRepository(
+    ) -> tuple[GoogleFlashcardRepository, list[Flashcard]]:
+        google_repo = GoogleFlashcardRepository(
             web_scraper=FakeWebScraper(),
         )
 

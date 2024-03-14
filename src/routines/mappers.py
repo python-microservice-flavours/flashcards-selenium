@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..adapters import orm
 from ..domain import model
 
+
 mapper_registry = sqlalchemy.orm.registry()
 
 
@@ -38,8 +39,8 @@ def receive_load(flashcard: model.Flashcard, qc: sqlalchemy.orm.QueryContext) ->
 @sqlalchemy.event.listens_for(sqlalchemy.orm.Session, "before_flush")
 def receive_before_flush(
     session: AsyncSession,
-    flush_context: sqlalchemy.orm.UOWTransaction,  # noqa: ARG001
-    instances: sqlalchemy.Sequence | None,  # noqa: ARG001
+    _flush_context: sqlalchemy.orm.UOWTransaction,
+    _instances: sqlalchemy.Sequence | None,
 ) -> None:
     flashcards: list[model.Flashcard] = []
     flashcards.extend(session.new)

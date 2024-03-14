@@ -7,11 +7,12 @@ import pytest
 import sqlalchemy.ext.asyncio
 from asgi_lifespan import LifespanManager
 
-from .. import conftest
 from src.domain.model import Flashcard
 from src.main import app
 from src.services import unit_of_work
 from src.services.message_bus import MessageBus
+
+from .. import conftest
 
 
 @pytest.fixture()
@@ -34,10 +35,13 @@ async def async_client(
         getattr(app, "unit_of_work_container").sql_alchemy_unit_of_work.override(sqlite_uow),
         getattr(app, "message_bus_container").message_bus.override(sqlite_bus),
     ):
-        async with httpx.AsyncClient(
-            app=app,
-            base_url="http://test",
-        ) as client, LifespanManager(app):
+        async with (
+            httpx.AsyncClient(
+                app=app,
+                base_url="http://test",
+            ) as client,
+            LifespanManager(app),
+        ):
             yield client
 
 

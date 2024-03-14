@@ -54,7 +54,7 @@ class MessageBus:
     async def handle(self, message: Message) -> typing.Any:
         if isinstance(message, Command):
             return await self._handle_command(message)
-        elif isinstance(message, Event):  # noqa: RET505
+        if isinstance(message, Event):
             asyncio.create_task(self._handle_event(message))  # noqa: RUF006
             return None
         raise NotImplementedError

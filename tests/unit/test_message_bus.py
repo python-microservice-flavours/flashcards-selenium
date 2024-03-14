@@ -3,6 +3,7 @@
 import time
 
 import pytest
+
 from src import routines
 from src.domain.commands import Command
 from src.domain.exceptions import CommandHandlingError

@@ -1,19 +1,20 @@
 """Fixtures related to unit tests."""
 
 import asyncio
-from dataclasses import dataclass
 import re
+from dataclasses import dataclass
 
 import pytest
 
-from .. import conftest
-from src.adapters.local_flashcard_repository import AbstractLocalFlashcardRepository
 from src.adapters.google_flashcard_repository import GoogleFlashcardRepository
+from src.adapters.local_flashcard_repository import AbstractLocalFlashcardRepository
 from src.domain import model
 from src.domain.commands import Command
 from src.domain.events import Event
 from src.services.message_bus import MessageBus
 from src.services.unit_of_work import AbstractUnitOfWork
+
+from .. import conftest
 
 
 class FakeLocalFlashcardRepository(AbstractLocalFlashcardRepository):

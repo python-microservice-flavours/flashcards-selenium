@@ -235,7 +235,7 @@ asyncio_mode = "auto"
 extend-exclude = ["alembic"]
 
 # A list of rule codes or prefixes to ignore.
-ignore = [
+lint.ignore = [
   "ANN101", # Checks that instance method self arguments have type annotations.
   "ANN401", # Checks that function arguments are annotated with a more specific type than Any.
   "B009",   # Checks for uses of getattr that take a constant attribute value as an argument.
@@ -246,6 +246,8 @@ ignore = [
   "D105",   # Checks for undocumented magic method definitions.
   "D106",   # Checks for undocumented public class definitions, for nested classes.
   "D107",   # Checks for public init method definitions that are missing docstrings.
+  "D205",   # Checks for docstring summary lines that are not separated from the docstring description by one blank line.
+  "D209",   # Checks for multi-line docstrings whose closing quotes are not on their own line.
   "D211",   # Checks for docstrings on class definitions that are preceded by a blank line.
   "D213",   # Checks for docstring summary lines that are not positioned
             # on the second physical line of the docstring.
@@ -266,14 +268,14 @@ ignore = [
 line-length = 99
 
 # A list of rule codes or prefixes to enable.
-select = ["ALL"]
+lint.select = ["ALL"]
 
 # The source code paths to consider, e.g., when resolving first- vs. third-party imports.
 src = ["src"]
 
 # -------------------------------------------------------------------------------------------------
 
-[tool.ruff.flake8-bugbear]
+[tool.ruff.lint.flake8-bugbear]
 
 # Additional callable functions to consider "immutable" when evaluating,
 # e.g., no-mutable-default-argument checks (B006).

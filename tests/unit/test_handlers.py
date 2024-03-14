@@ -63,12 +63,12 @@ class TestCommandHandlers:
         self,
         fake_uow: conftest.FakeUnitOfWork,
     ) -> None:
-        flashcards: list[
-            Flashcard
-        ] = conftest.ServiceClass.create_local_repository_with_flashcards(
-            fake_uow,
-            {"word": "FIRST"},
-            {"word": "SECOND"},
+        flashcards: list[Flashcard] = (
+            conftest.ServiceClass.create_local_repository_with_flashcards(
+                fake_uow,
+                {"word": "FIRST"},
+                {"word": "SECOND"},
+            )
         )
 
         await ServiceClass.delete_and_retrieve_flashcard(fake_uow, flashcards[1])

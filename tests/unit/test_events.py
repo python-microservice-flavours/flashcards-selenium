@@ -1,6 +1,7 @@
 """Unit tests related to commands."""
 
 import pytest
+
 from src.domain.events import FlashcardFetchedFromGoogleApi
 from src.domain.exceptions import FlashcardCreationError
 from src.domain.model import Flashcard

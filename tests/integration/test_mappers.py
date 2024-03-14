@@ -1,12 +1,13 @@
 """Integration tests related to mappers."""
 
 import sqlalchemy.ext.asyncio
+
 from src.adapters import orm
+from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
 from src.domain import model
 from src.routines import mappers
 
 from .conftest import ServiceClass
-from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
 
 
 class TestMappers:

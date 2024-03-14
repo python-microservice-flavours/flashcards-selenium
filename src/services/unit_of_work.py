@@ -5,12 +5,13 @@ import contextvars
 import types
 import typing
 
-import dependency_injector.wiring
-import sqlalchemy.ext.asyncio
 import typing_extensions
+from dependency_injector.wiring import Provide, inject
 from sqlalchemy.exc import OperationalError
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from ..adapters import google_flashcard_repository, local_flashcard_repository
+from ..adapters import local_flashcard_repository
+from ..adapters.google_flashcard_repository import AbstractGoogleFlashcardRepository
 from ..containers.google_flashcard_repository import GoogleFlashcardRepositoryContainer
 from ..containers.session_factory import SessionFactoryContainer
 from ..domain.exceptions import DatabaseConnectionError
@@ -18,7 +19,7 @@ from ..domain.exceptions import DatabaseConnectionError
 
 class AbstractUnitOfWork(typing.Protocol):
     local_flashcard_repository: local_flashcard_repository.AbstractLocalFlashcardRepository
-    google_flashcard_repository: google_flashcard_repository.AbstractGoogleFlashcardRepository
+    google_flashcard_repository: AbstractGoogleFlashcardRepository
 
     async def __aenter__(self) -> typing_extensions.Self:
         return self
@@ -41,7 +42,7 @@ class AbstractUnitOfWork(typing.Protocol):
     def collect_new_events(self) -> typing.Generator:
         repositories: list[
             local_flashcard_repository.AbstractLocalFlashcardRepository
-            | google_flashcard_repository.AbstractGoogleFlashcardRepository
+            | AbstractGoogleFlashcardRepository
         ] = [
             self.local_flashcard_repository,
             self.google_flashcard_repository,
@@ -62,20 +63,16 @@ class AbstractUnitOfWork(typing.Protocol):
 
 
 class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
-    @dependency_injector.wiring.inject
+    @inject
     def __init__(
         self,
-        session_factory: sqlalchemy.ext.asyncio.async_sessionmaker = dependency_injector.wiring.Provide[  # noqa: E501
-            SessionFactoryContainer.session_factory
-        ],
-        google_flashcard_repository: google_flashcard_repository.AbstractGoogleFlashcardRepository = dependency_injector.wiring.Provide[  # noqa: E501
+        session_factory: async_sessionmaker = Provide[SessionFactoryContainer.session_factory],
+        google_flashcard_repository: AbstractGoogleFlashcardRepository = Provide[
             GoogleFlashcardRepositoryContainer.google_flashcard_repository
         ],
     ) -> None:
         self._session_factory = session_factory
-        self._session: contextvars.ContextVar[
-            sqlalchemy.ext.asyncio.AsyncSession
-        ] = contextvars.ContextVar("session")
+        self._session: contextvars.ContextVar[AsyncSession] = contextvars.ContextVar("session")
         self.google_flashcard_repository = google_flashcard_repository
 
     async def __aenter__(self) -> typing_extensions.Self:

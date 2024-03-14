@@ -106,7 +106,9 @@ class SqlAlchemyFlashcardRepository(AbstractLocalFlashcardRepository):
         try:
             results = await self.session.scalars(
                 select(Flashcard)
-                .filter(Flashcard.word.regexp_match(regular_expression))  # type: ignore[attr-defined]
+                .filter(
+                    Flashcard.word.regexp_match(regular_expression),  # type: ignore[attr-defined]
+                )
                 .where(Flashcard.word > last_retrieved_word)  # type: ignore[arg-type]
                 .order_by(Flashcard.word)
                 .limit(limit),

@@ -1,7 +1,6 @@
 """Integration tests related to web scraper."""
 
 import pytest
-
 from pydantic import HttpUrl
 
 from src.domain.exceptions import WebScraperError

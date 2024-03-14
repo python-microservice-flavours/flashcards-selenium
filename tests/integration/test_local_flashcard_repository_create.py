@@ -1,4 +1,5 @@
-"""Integration tests related to local flashcard repository's CREATE operations."""
+"""Integration tests related to local flashcard repository's CREATE
+operations."""
 
 import sqlalchemy.ext.asyncio
 

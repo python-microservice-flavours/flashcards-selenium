@@ -5,10 +5,11 @@ import typing
 import pytest
 import sqlalchemy.ext.asyncio
 
-from .. import conftest
 from src.adapters.local_flashcard_repository import SqlAlchemyFlashcardRepository
 from src.domain.model import Flashcard
 from src.routines import mappers
+
+from .. import conftest
 
 
 @pytest.fixture(scope="module", autouse=True)

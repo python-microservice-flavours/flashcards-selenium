@@ -5,6 +5,7 @@ import fastapi
 from . import api, routines
 from .containers.wiring import attach_containers_to_app
 
+
 app = fastapi.FastAPI(
     title="Flashcards Microservice",
     summary="Provides with ability to manipulate flashcards.",

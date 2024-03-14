@@ -10,6 +10,7 @@ from ...containers.message_bus import MessageBusContainer
 from ...domain import exceptions
 from ...services.message_bus import MessageBus
 
+
 router = fastapi.APIRouter()
 
 

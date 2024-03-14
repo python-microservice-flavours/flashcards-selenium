@@ -46,6 +46,7 @@ def run_migrations_offline() -> None:
 
     Calls to context.execute() here emit the given string to the script
     output.
+
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
