@@ -61,6 +61,7 @@ async def in_memory_sqlite_db() -> typing.AsyncGenerator:
     engine = sqlalchemy.ext.asyncio.create_async_engine("sqlite+aiosqlite:///:memory:")
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        await conn.execute(sqlalchemy.text("PRAGMA foreign_keys = ON"))
     yield engine
     await engine.dispose()
 

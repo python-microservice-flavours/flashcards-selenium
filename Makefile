@@ -4,7 +4,7 @@ export GOOGLE_TRANSLATOR_URL=https://translate.google.com/details?sl=auto&tl=ru&
 export WEB_SCRAPER_TIMEOUT=10
 
 export DICTIONARY_LINK_CSS_SELECTOR=a.dWI6ed
-export BUTTON_CSS_SELECTOR=button.xxrV1d
+export BUTTON_CSS_SELECTOR=button.VK4HE
 export DEFINITION_CSS_SELECTOR=div.fw3eif
 export SYNONYM_CSS_SELECTOR=span.PsfnLc
 export TRANSLATION_CSS_SELECTOR=span.kgnlhe
