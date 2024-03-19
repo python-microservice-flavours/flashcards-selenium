@@ -26,7 +26,7 @@ class Flashcard:
         self.events: list[events.Event] = []
 
     def __hash__(self) -> int:
-        return hash(self.word)
+        return hash((self.__class__, self.word))
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, self.__class__):
